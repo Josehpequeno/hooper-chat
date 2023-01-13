@@ -1,0 +1,14 @@
+.home_bg {
+  background-image: url("../../assets/bg.jpg");
+  height: 92vh;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow-x: hidden;
+}
+.color-primary {
+  color: #A8977D;
+}
+.bg-color-primary {
+  background-color: #A8977D;
+}
