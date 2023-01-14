@@ -1,0 +1,1 @@
+docker exec -it mongodb mongo --host localhost -u adm -p 2020 --authenticationDatabase admin --eval "db.getSiblingDB('hooperChat').createUser({user: 'adm', pwd: '2020', roles: [{role: 'readWrite', db: 'hooperChat'}]})"

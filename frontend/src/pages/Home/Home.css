@@ -6,9 +6,11 @@
   background-repeat: no-repeat;
   overflow-x: hidden;
 }
+
 .color-primary {
   color: #A8977D;
 }
+
 .bg-color-primary {
-  background-color: #A8977D;
+  background-color: #A8977D !important;
 }

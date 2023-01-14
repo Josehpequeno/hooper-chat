@@ -13,8 +13,8 @@ function Home() {
         <div>
           <h1>Share the world of basketball with your friends hoopers</h1>
           <p>Hooper Chat let you connect with the world of basketball</p>
-          <LinkContainer to="/chat">
-            <Button className="bg-color-primary">
+          <LinkContainer to="/chat" className="bg-color-primary">
+            <Button>
               Get Started
               <img
                 src={chat}
