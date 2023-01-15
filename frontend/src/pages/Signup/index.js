@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { useSignupUserMutation } from "../../services/appApi";
+import { Link, useNavigate } from "react-router-dom";
 import "./Signup.css";
 import user from "../../assets/user.jpg";
 
 function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
-
+  const [name, setName] = useState("");
+  // const [signupUser, { isLoading, error }] = useSignupUserMutation();
+  const [signupUser] = useSignupUserMutation();
+  const navigate = useNavigate();
   const [image, setImage] = useState(null);
   const [uploadImg, setUploadImg] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
@@ -51,6 +54,12 @@ function Signup() {
     const url = await uploadImage(image);
     console.log(url);
     // signup the user
+    signupUser({ name, email, password, picture: url }).then(({ data }) => {
+      if (data) {
+        console.log(data);
+        navigate("/chat");
+      }
+    });
   }
 
   return (
@@ -84,8 +93,8 @@ function Signup() {
               <Form.Control
                 type="text"
                 placeholder="Your Username"
-                onChange={(e) => setUsername(e.target.value)}
-                value={username}
+                onChange={(e) => setName(e.target.value)}
+                value={name}
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
