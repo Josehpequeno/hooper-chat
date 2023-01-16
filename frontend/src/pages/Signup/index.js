@@ -9,8 +9,7 @@ function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  // const [signupUser, { isLoading, error }] = useSignupUserMutation();
-  const [signupUser] = useSignupUserMutation();
+  const [signupUser, { isLoading, error }] = useSignupUserMutation();
   const navigate = useNavigate();
   const [image, setImage] = useState(null);
   const [uploadImg, setUploadImg] = useState(false);
@@ -88,6 +87,7 @@ function Signup() {
                 onChange={validateImg}
               />
             </div>
+            {error && <p className="alert alert-danger">{error.data}</p>}
             <Form.Group className="mb-3" controlId="formBasicName">
               <Form.Label>Name</Form.Label>
               <Form.Control
@@ -123,7 +123,7 @@ function Signup() {
               <Form.Check type="checkbox" label="Check me out" />
             </Form.Group>
             <Button variant="primary" type="submit">
-              {uploadImg ? "Signup you up ..." : "Signup"}
+              {uploadImg || isLoading ? "Signup you up ..." : "Signup"}
             </Button>
             <div className="py-4">
               <p className="text-center">

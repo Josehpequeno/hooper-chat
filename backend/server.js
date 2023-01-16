@@ -5,36 +5,37 @@ const userRoutes = require("./routes/user");
 require("./connection");
 
 const rooms = [
+  "General",
   "Atlanta Hawks",
   "Boston Celtics",
   "Brooklyn Nets",
-  "Charlotte Hornets",
-  "Chicago Bulls",
-  "Cleveland Cavaliers",
-  "Dallas Mavericks",
-  "Denver Nuggets",
-  "Detroit Pistons",
-  "Golden State Warriors",
-  "Houston Rockets",
-  "Indiana Pacers",
-  "Los Angeles Clippers",
-  "Los Angeles Lakers",
-  "Memphis Grizzlies",
-  "Miami Heat",
-  "Milwaukee Bucks",
-  "Minnesota Timberwolves",
-  "New Orleans Pelicans",
-  "New York Knicks",
-  "Oklahoma City Thunder",
-  "Orlando Magic",
-  "Philadelphia 76ers",
-  "Phoenix Suns",
-  "Portland Trail Blazers",
-  "Sacramento Kings",
-  "San Antonio Spurs",
-  "Toronto Raptors",
-  "Utah Jazz",
-  "Washington Wizards"
+  // "Charlotte Hornets",
+  // "Chicago Bulls",
+  // "Cleveland Cavaliers",
+  // "Dallas Mavericks",
+  // "Denver Nuggets",
+  // "Detroit Pistons",
+  // "Golden State Warriors",
+  // "Houston Rockets",
+  // "Indiana Pacers",
+  // "Los Angeles Clippers",
+  // "Los Angeles Lakers",
+  // "Memphis Grizzlies",
+  // "Miami Heat",
+  // "Milwaukee Bucks",
+  // "Minnesota Timberwolves",
+  // "New Orleans Pelicans",
+  // "New York Knicks",
+  // "Oklahoma City Thunder",
+  // "Orlando Magic",
+  // "Philadelphia 76ers",
+  // "Phoenix Suns",
+  // "Portland Trail Blazers",
+  // "Sacramento Kings",
+  // "San Antonio Spurs",
+  // "Toronto Raptors",
+  // "Utah Jazz",
+  // "Washington Wizards"
 ];
 const cors = require("cors");
 const Message = require("./models/Message");
@@ -86,9 +87,10 @@ io.on("connection", (socket) => {
     io.emit("new-user", members);
   });
 
-  socket.on("join-room", async (room) => {
-    socket.join(room);
-    let roomMessages = await getLastMessagesFromRoom(room);
+  socket.on("join-room", async (newRoom, previousRoom) => {
+    socket.join(newRoom);
+    socket.leave(previousRoom);
+    let roomMessages = await getLastMessagesFromRoom(newRoom);
     roomMessages = sortRoomMessagesByDate(roomMessages);
     socket.emit("room-messages", roomMessages);
   });
